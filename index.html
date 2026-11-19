@@ -309,6 +309,15 @@
       cursor: pointer;
     }
 
+    .edition-input {
+      display: inline-block;
+      min-width: 52px;
+      padding: 0 4px;
+      border-bottom: 1px solid #64748b;
+      text-align: center;
+      font-weight: bold;
+    }
+
     .title-input-row {
       display: flex;
       flex-wrap: wrap;
@@ -508,6 +517,7 @@
 
     /* Regras de Impressão / PDF */
     @media print {
+
       html,
       body {
         width: 210mm;
@@ -595,7 +605,7 @@
         </div>
         <div class="field">
           <label>Data</label>
-          <div class="editable" contenteditable="true">____/____/2026</div>
+          <div class="editable" id="meeting-date" contenteditable="true"></div>
         </div>
         <div class="field">
           <label>Horário (Início / Fim)</label>
@@ -627,7 +637,11 @@
       <div class="section-body">
         <div class="reading-options">
           <strong>Fonte da Leitura:</strong>
-          <label><input type="checkbox"> Jornal <em>A Verdade</em> (Edição nº _____)</label>
+          <label>
+            <input type="checkbox">
+            <span>Jornal <em>A Verdade</em> (Edição nº <span class="editable edition-input" contenteditable="true"
+                aria-label="Número da edição"></span>)</span>
+          </label>
           <label><input type="checkbox"> Texto Marxista / Documento Partidário</label>
         </div>
         <div class="title-input-row">
@@ -795,8 +809,16 @@
     </div>
   </div>
 
-  <!-- Scripts de Dinâmica de Linhas e Cronômetro -->
+  <!-- Scripts de Data Atual, Dinâmica de Linhas e Cronômetro -->
   <script>
+    /* --- 0. Preencher Data Atual --- */
+    (function setCurrentDate() {
+      const dateEl = document.getElementById('meeting-date');
+      if (!dateEl) return;
+      const hoje = new Date();
+      dateEl.textContent = hoje.toLocaleDateString('pt-BR');
+    })();
+
     /* --- 1. Adição e Remoção Dinâmica de Linhas --- */
     function addSpeechRow() {
       const tbody = document.getElementById('speech-tbody');
@@ -864,7 +886,7 @@
         gain.connect(ctx.destination);
         osc.start();
         osc.stop(ctx.currentTime + duration / 1000);
-      } catch (e) {}
+      } catch (e) { }
     }
 
     function showAlert(message, isDanger = false) {
