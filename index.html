@@ -302,8 +302,15 @@
       align-items: center;
     }
 
+    .reading-item {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 4px;
+    }
+
     .reading-options label {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 6px;
       cursor: pointer;
@@ -637,11 +644,14 @@
       <div class="section-body">
         <div class="reading-options">
           <strong>Fonte da Leitura:</strong>
-          <label>
-            <input type="checkbox">
-            <span>Jornal <em>A Verdade</em> (Edição nº <span class="editable edition-input" contenteditable="true"
+          <div class="reading-item">
+            <label>
+              <input type="checkbox">
+              <span>Jornal <em>A Verdade</em></span>
+            </label>
+            <span>(Edição nº <span class="editable edition-input" contenteditable="true"
                 aria-label="Número da edição"></span>)</span>
-          </label>
+          </div>
           <label><input type="checkbox"> Texto Marxista / Documento Partidário</label>
         </div>
         <div class="title-input-row">
