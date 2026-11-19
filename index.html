@@ -18,6 +18,8 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
 
     body {
@@ -506,9 +508,12 @@
 
     /* Regras de Impressão / PDF */
     @media print {
+      html,
       body {
-        background: white;
-        padding: 0;
+        width: 210mm;
+        background: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
       }
 
       .screen-toolbar,
@@ -517,17 +522,32 @@
       }
 
       .page {
-        width: 100%;
-        max-width: none;
-        min-height: auto;
-        box-shadow: none;
-        padding: 0;
-        margin: 0;
+        width: 210mm !important;
+        max-width: 210mm !important;
+        min-height: 297mm !important;
+        box-shadow: none !important;
+        border: none !important;
+        padding: 8mm 10mm !important;
+        margin: 0 auto !important;
+      }
+
+      tr,
+      .section,
+      .doc-header,
+      .finance-grid,
+      .meta-grid,
+      .meta-grid-row2 {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .editable:focus {
+        background: transparent !important;
       }
 
       @page {
         size: A4 portrait;
-        margin: 10mm;
+        margin: 8mm;
       }
     }
   </style>
@@ -567,7 +587,7 @@
   <!-- Folha de Reunião A4 -->
   <div class="page">
     <div class="doc-header">
-      <div class="doc-title">Folha de Reunião e Controle de Pauta — Núcleo Partidário</div>
+      <div class="doc-title">Folha de Reunião e Controle de Pauta — Núcleo</div>
       <div class="meta-grid">
         <div class="field">
           <label>Nome / Identificação do Núcleo</label>
@@ -796,7 +816,6 @@
       const tbody = document.getElementById('speech-tbody');
       if (tbody.children.length <= 1) return;
       btn.closest('tr').remove();
-      // Reordena a numeração (#)
       Array.from(tbody.querySelectorAll('.row-index')).forEach((cell, idx) => {
         cell.textContent = idx + 1;
       });
@@ -822,7 +841,7 @@
     }
 
     /* --- 2. Cronômetro com Presets, Alertas e Tempo Negativo --- */
-    let initialSeconds = 300; // Padrão: 5 minutos (300s)
+    let initialSeconds = 300;
     let remainingSeconds = 300;
     let timerInterval = null;
 
@@ -830,7 +849,6 @@
     const alertBanner = document.getElementById('timer-alert-banner');
     const alertText = document.getElementById('timer-alert-text');
 
-    // Alerta sonoro discreto via Web Audio API (funciona sem arquivos externos)
     function playBeep(frequency = 880, duration = 180) {
       try {
         const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -846,9 +864,7 @@
         gain.connect(ctx.destination);
         osc.start();
         osc.stop(ctx.currentTime + duration / 1000);
-      } catch (e) {
-        // Ignora caso o navegador bloqueie áudio automático
-      }
+      } catch (e) {}
     }
 
     function showAlert(message, isDanger = false) {
@@ -895,7 +911,6 @@
     }
 
     function checkTimeAlerts() {
-      // Alertas específicos quando a fala padrão de 5 minutos (300s) é iniciada
       if (initialSeconds === 300) {
         if (remainingSeconds === 180) {
           showAlert('⏱️ Alerta: Restam 3 minutos de fala.');
@@ -909,7 +924,6 @@
         }
       }
 
-      // Alerta geral ao zerar o tempo (vale para 5, 2 ou 1 min)
       if (remainingSeconds === 0) {
         showAlert('🚨 Tempo esgotado! Iniciando contagem de tempo extra (-00:01...).', true);
         playBeep(980, 400);
