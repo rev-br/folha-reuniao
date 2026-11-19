@@ -25,7 +25,7 @@
       font-size: 11pt;
       color: var(--text);
       background-color: #e2e8f0;
-      padding: 20px;
+      padding: 16px;
     }
 
     /* Barra de ferramentas exclusiva para tela (oculta no PDF) */
@@ -35,30 +35,63 @@
       background: #1e293b;
       color: white;
       padding: 12px 16px;
-      border-radius: 6px;
+      border-radius: 8px;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .timer-container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
       gap: 10px;
+      flex: 1;
+    }
+
+    .preset-group {
+      display: flex;
+      gap: 4px;
+      background: #0f172a;
+      padding: 4px;
+      border-radius: 6px;
+      border: 1px solid #334155;
+    }
+
+    .btn-preset {
+      background: transparent;
+      color: #cbd5e1;
+      padding: 5px 10px;
+      font-size: 0.8rem;
+      border-radius: 4px;
+      transition: all 0.15s;
+    }
+
+    .btn-preset.active {
+      background: var(--primary);
+      color: white;
     }
 
     .timer-box {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       background: #0f172a;
       padding: 6px 12px;
-      border-radius: 4px;
+      border-radius: 6px;
       border: 1px solid #475569;
     }
 
     #timer-display {
       font-family: monospace;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       font-weight: bold;
       color: #4ade80;
-      min-width: 60px;
+      min-width: 72px;
+      text-align: center;
     }
 
     #timer-display.warning {
@@ -67,15 +100,50 @@
 
     #timer-display.danger {
       color: #f87171;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.55;
+      }
+    }
+
+    .timer-alert-banner {
+      width: 100%;
+      background: #fef08a;
+      color: #854d0e;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      font-weight: bold;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .timer-alert-banner.danger {
+      background: #fee2e2;
+      color: #991b1b;
     }
 
     button {
       cursor: pointer;
       border: none;
-      padding: 6px 12px;
+      padding: 7px 12px;
       border-radius: 4px;
       font-weight: bold;
       font-size: 0.85rem;
+    }
+
+    button:active {
+      transform: scale(0.98);
     }
 
     .btn-start {
@@ -96,12 +164,34 @@
     .btn-print {
       background: #dc2626;
       color: white;
-      padding: 8px 16px;
+      padding: 9px 16px;
     }
 
-    /* Folha A4 */
+    .btn-add-row {
+      background: #0f172a;
+      color: white;
+      padding: 4px 10px;
+      font-size: 0.78rem;
+      border-radius: 4px;
+    }
+
+    .btn-remove-row {
+      background: transparent;
+      color: #94a3b8;
+      padding: 2px 6px;
+      font-size: 0.9rem;
+      border-radius: 3px;
+    }
+
+    .btn-remove-row:hover {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    /* Folha A4 (Responsiva na tela, fixa na impressão) */
     .page {
-      width: 210mm;
+      width: 100%;
+      max-width: 210mm;
       min-height: 297mm;
       margin: 0 auto;
       background: white;
@@ -121,7 +211,7 @@
       text-align: center;
       font-weight: bold;
       font-size: 13pt;
-      padding: 6px;
+      padding: 8px;
       letter-spacing: 0.5px;
       text-transform: uppercase;
     }
@@ -139,7 +229,7 @@
     }
 
     .field {
-      padding: 5px 8px;
+      padding: 6px 8px;
       border-right: 1px solid var(--border);
       display: flex;
       flex-direction: column;
@@ -154,14 +244,15 @@
       font-weight: bold;
       text-transform: uppercase;
       color: #475569;
-      margin-bottom: 2px;
+      margin-bottom: 3px;
     }
 
     .editable {
-      min-height: 18px;
+      min-height: 20px;
       outline: none;
       font-size: 10pt;
       color: #000;
+      word-break: break-word;
     }
 
     .editable:focus {
@@ -171,19 +262,21 @@
     /* Seções */
     .section {
       border: 1.5px solid var(--border);
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .section-title {
       background: var(--bg-header);
       border-bottom: 1.5px solid var(--border);
-      padding: 4px 8px;
+      padding: 6px 8px;
       font-weight: bold;
       font-size: 9.5pt;
       text-transform: uppercase;
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
+      gap: 6px;
     }
 
     .section-title span.hint {
@@ -194,14 +287,15 @@
     }
 
     .section-body {
-      padding: 6px 8px;
+      padding: 8px;
     }
 
     /* Checkboxes de Leitura */
     .reading-options {
       display: flex;
-      gap: 20px;
-      margin-bottom: 6px;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 8px;
       font-size: 9.5pt;
       align-items: center;
     }
@@ -209,11 +303,31 @@
     .reading-options label {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       cursor: pointer;
     }
 
+    .title-input-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 8px;
+      font-size: 9.5pt;
+    }
+
+    .title-input-field {
+      flex: 1;
+      min-width: 200px;
+      border-bottom: 1px solid #94a3b8;
+    }
+
     /* Tabelas */
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -223,7 +337,7 @@
     th,
     td {
       border: 1px solid var(--light-border);
-      padding: 4px 6px;
+      padding: 6px;
       text-align: left;
       vertical-align: top;
     }
@@ -248,10 +362,6 @@
       background-size: 100% 21px;
     }
 
-    .notes-area.tall {
-      min-height: 85px;
-    }
-
     /* Grid Financeiro */
     .finance-grid {
       display: grid;
@@ -260,7 +370,7 @@
     }
 
     .finance-box {
-      padding: 5px 8px;
+      padding: 6px 8px;
       border-right: 1px solid var(--light-border);
     }
 
@@ -274,6 +384,124 @@
       font-weight: bold;
       color: #475569;
       text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    /* Responsividade Mobile */
+    @media screen and (max-width: 768px) {
+      body {
+        padding: 8px;
+      }
+
+      .screen-toolbar {
+        position: sticky;
+        top: 6px;
+        z-index: 100;
+        padding: 10px;
+      }
+
+      .timer-container {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .timer-box {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .btn-print {
+        width: 100%;
+      }
+
+      .page {
+        padding: 12px;
+        min-height: auto;
+      }
+
+      .doc-title {
+        font-size: 11pt;
+      }
+
+      .meta-grid,
+      .meta-grid-row2 {
+        grid-template-columns: 1fr;
+      }
+
+      .field {
+        border-right: none;
+        border-bottom: 1px solid var(--light-border);
+      }
+
+      .field:last-child {
+        border-bottom: none;
+      }
+
+      .finance-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .finance-box:nth-child(2) {
+        border-right: none;
+      }
+
+      .finance-box:nth-child(1),
+      .finance-box:nth-child(2) {
+        border-bottom: 1px solid var(--light-border);
+      }
+
+      /* Transforma tabelas em cards empilhados no celular para facilitar digitação */
+      .responsive-table thead {
+        display: none;
+      }
+
+      .responsive-table,
+      .responsive-table tbody,
+      .responsive-table tr,
+      .responsive-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .responsive-table tr {
+        border-bottom: 2px solid var(--border);
+        padding: 6px 0;
+        position: relative;
+      }
+
+      .responsive-table tr:last-child {
+        border-bottom: none;
+      }
+
+      .responsive-table td {
+        border: none;
+        border-bottom: 1px dashed var(--light-border);
+        padding: 5px 8px;
+        text-align: left !important;
+      }
+
+      .responsive-table td:last-child {
+        border-bottom: none;
+      }
+
+      .responsive-table td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 7.5pt;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #64748b;
+        margin-bottom: 2px;
+      }
+
+      .responsive-table td.action-col {
+        text-align: right !important;
+        padding-top: 2px;
+      }
+
+      .responsive-table td.action-col::before {
+        display: none;
+      }
     }
 
     /* Regras de Impressão / PDF */
@@ -283,12 +511,14 @@
         padding: 0;
       }
 
-      .screen-toolbar {
+      .screen-toolbar,
+      .no-print {
         display: none !important;
       }
 
       .page {
         width: 100%;
+        max-width: none;
         min-height: auto;
         box-shadow: none;
         padding: 0;
@@ -307,15 +537,30 @@
 
   <!-- Barra de Controle (Apenas na tela, some ao imprimir/salvar PDF) -->
   <div class="screen-toolbar">
-    <div class="timer-box">
-      <span style="font-size: 0.85rem;">Cronômetro (5 min):</span>
-      <span id="timer-display">05:00</span>
-      <button class="btn-start" onclick="startTimer()">Iniciar</button>
-      <button class="btn-pause" onclick="pauseTimer()">Pausar</button>
-      <button class="btn-reset" onclick="resetTimer()">Zerar</button>
+    <div class="timer-container">
+      <div class="preset-group" title="Escolher duração da fala">
+        <button class="btn-preset active" id="preset-300" onclick="setPreset(300, this)">5 min (Padrão)</button>
+        <button class="btn-preset" id="preset-120" onclick="setPreset(120, this)">2 min (Extra)</button>
+        <button class="btn-preset" id="preset-60" onclick="setPreset(60, this)">1 min (Extra)</button>
+      </div>
+
+      <div class="timer-box">
+        <span id="timer-display">05:00</span>
+        <div style="display: flex; gap: 4px;">
+          <button class="btn-start" onclick="startTimer()">Iniciar</button>
+          <button class="btn-pause" onclick="pauseTimer()">Pausar</button>
+          <button class="btn-reset" onclick="resetTimer()">Zerar</button>
+        </div>
+      </div>
     </div>
+
     <div>
-      <button class="btn-print" onclick="window.print()">Salvar PDF / Imprimir (Ctrl+P)</button>
+      <button class="btn-print" onclick="window.print()">Salvar PDF / Imprimir</button>
+    </div>
+
+    <div class="timer-alert-banner" id="timer-alert-banner">
+      <span id="timer-alert-text">Aviso de tempo</span>
+      <button onclick="dismissAlert()" style="background: transparent; color: inherit; padding: 0 4px;">✕</button>
     </div>
   </div>
 
@@ -365,10 +610,9 @@
           <label><input type="checkbox"> Jornal <em>A Verdade</em> (Edição nº _____)</label>
           <label><input type="checkbox"> Texto Marxista / Documento Partidário</label>
         </div>
-        <div style="margin-bottom: 6px; font-size: 9.5pt;">
+        <div class="title-input-row">
           <strong>Título do Texto / Matéria:</strong>
-          <span class="editable" contenteditable="true"
-            style="display: inline-block; width: 72%; border-bottom: 1px solid #94a3b8;"></span>
+          <span class="editable title-input-field" contenteditable="true"></span>
         </div>
         <div style="font-size: 9.5pt;">
           <strong>Ordem do Dia (Pontos de Pauta):</strong>
@@ -382,81 +626,51 @@
     <!-- 2. Controle de Falas (5 min) e Debate de Conjuntura -->
     <div class="section">
       <div class="section-title">
-        <span>2. Presença, Controle de Tempo (5 min) e Síntese das Falas</span>
-        <span class="hint">Debate sobre o texto e a conjuntura</span>
+        <div>
+          <span>2. Presença, Controle de Tempo (5 min) e Síntese das Falas</span>
+          <span class="hint" style="display: block;">Debate sobre o texto e a conjuntura</span>
+        </div>
+        <button type="button" class="btn-add-row no-print" onclick="addSpeechRow()">+ Adicionar Fala</button>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 5%;" class="center">#</th>
-            <th style="width: 27%;">Integrante / Camarada</th>
-            <th style="width: 11%;" class="center">Tempo</th>
-            <th style="width: 57%;">Pontos Centrais da Intervenção (Texto / Conjuntura)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="center">1</td>
-            <td class="editable" contenteditable="true"></td>
-            <td class="center editable" contenteditable="true">___:___</td>
-            <td class="editable" contenteditable="true"></td>
-          </tr>
-          <tr>
-            <td class="center">2</td>
-            <td class="editable" contenteditable="true"></td>
-            <td class="center editable" contenteditable="true">___:___</td>
-            <td class="editable" contenteditable="true"></td>
-          </tr>
-          <tr>
-            <td class="center">3</td>
-            <td class="editable" contenteditable="true"></td>
-            <td class="center editable" contenteditable="true">___:___</td>
-            <td class="editable" contenteditable="true"></td>
-          </tr>
-          <tr>
-            <td class="center">4</td>
-            <td class="editable" contenteditable="true"></td>
-            <td class="center editable" contenteditable="true">___:___</td>
-            <td class="editable" contenteditable="true"></td>
-          </tr>
-          <tr>
-            <td class="center">5</td>
-            <td class="editable" contenteditable="true"></td>
-            <td class="center editable" contenteditable="true">___:___</td>
-            <td class="editable" contenteditable="true"></td>
-          </tr>
-          <tr>
-            <td class="center">6</td>
-            <td class="editable" contenteditable="true"></td>
-            <td class="center editable" contenteditable="true">___:___</td>
-            <td class="editable" contenteditable="true"></td>
-          </tr>
-          <tr>
-            <td class="center">7</td>
-            <td class="editable" contenteditable="true"></td>
-            <td class="center editable" contenteditable="true">___:___</td>
-            <td class="editable" contenteditable="true"></td>
-          </tr>
-          <tr>
-            <td class="center">8</td>
-            <td class="editable" contenteditable="true"></td>
-            <td class="center editable" contenteditable="true">___:___</td>
-            <td class="editable" contenteditable="true"></td>
-          </tr>
-          <tr>
-            <td class="center">9</td>
-            <td class="editable" contenteditable="true"></td>
-            <td class="center editable" contenteditable="true">___:___</td>
-            <td class="editable" contenteditable="true"></td>
-          </tr>
-          <tr>
-            <td class="center">10</td>
-            <td class="editable" contenteditable="true"></td>
-            <td class="center editable" contenteditable="true">___:___</td>
-            <td class="editable" contenteditable="true"></td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-wrapper">
+        <table class="responsive-table" id="speech-table">
+          <thead>
+            <tr>
+              <th style="width: 5%;" class="center">#</th>
+              <th style="width: 26%;">Integrante / Camarada</th>
+              <th style="width: 11%;" class="center">Tempo</th>
+              <th style="width: 54%;">Pontos Centrais da Intervenção (Texto / Conjuntura)</th>
+              <th style="width: 4%;" class="center no-print"></th>
+            </tr>
+          </thead>
+          <tbody id="speech-tbody">
+            <tr>
+              <td class="center row-index" data-label="#">1</td>
+              <td class="editable" contenteditable="true" data-label="Integrante / Camarada"></td>
+              <td class="center editable" contenteditable="true" data-label="Tempo">___:___</td>
+              <td class="editable" contenteditable="true" data-label="Pontos Centrais da Intervenção"></td>
+              <td class="center no-print action-col"><button type="button" class="btn-remove-row" title="Remover linha"
+                  onclick="removeSpeechRow(this)">✕</button></td>
+            </tr>
+            <tr>
+              <td class="center row-index" data-label="#">2</td>
+              <td class="editable" contenteditable="true" data-label="Integrante / Camarada"></td>
+              <td class="center editable" contenteditable="true" data-label="Tempo">___:___</td>
+              <td class="editable" contenteditable="true" data-label="Pontos Centrais da Intervenção"></td>
+              <td class="center no-print action-col"><button type="button" class="btn-remove-row" title="Remover linha"
+                  onclick="removeSpeechRow(this)">✕</button></td>
+            </tr>
+            <tr>
+              <td class="center row-index" data-label="#">3</td>
+              <td class="editable" contenteditable="true" data-label="Integrante / Camarada"></td>
+              <td class="center editable" contenteditable="true" data-label="Tempo">___:___</td>
+              <td class="editable" contenteditable="true" data-label="Pontos Centrais da Intervenção"></td>
+              <td class="center no-print action-col"><button type="button" class="btn-remove-row" title="Remover linha"
+                  onclick="removeSpeechRow(this)">✕</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- 3. Informes -->
@@ -473,51 +687,59 @@
     <!-- 4. Propostas, Ações de Militância e Tarefas -->
     <div class="section">
       <div class="section-title">
-        <span>4. Deliberações, Ações de Militância e Encaminhamentos</span>
-        <span class="hint">Brigadas, agitação, formação e tarefas</span>
+        <div>
+          <span>4. Deliberações, Ações de Militância e Encaminhamentos</span>
+          <span class="hint" style="display: block;">Brigadas, agitação, formação e tarefas</span>
+        </div>
+        <button type="button" class="btn-add-row no-print" onclick="addActionRow()">+ Adicionar Ação</button>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 18%;">Tipo / Frente</th>
-            <th style="width: 47%;">Ação / Proposta Aprovada</th>
-            <th style="width: 20%;">Responsável(is)</th>
-            <th style="width: 15%;" class="center">Prazo / Data</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="editable" contenteditable="true">Brigada / Jornal</td>
-            <td class="editable" contenteditable="true"></td>
-            <td class="editable" contenteditable="true"></td>
-            <td class="center editable" contenteditable="true"></td>
-          </tr>
-          <tr>
-            <td class="editable" contenteditable="true">Militância / Base</td>
-            <td class="editable" contenteditable="true"></td>
-            <td class="editable" contenteditable="true"></td>
-            <td class="center editable" contenteditable="true"></td>
-          </tr>
-          <tr>
-            <td class="editable" contenteditable="true">Formação</td>
-            <td class="editable" contenteditable="true"></td>
-            <td class="editable" contenteditable="true"></td>
-            <td class="center editable" contenteditable="true"></td>
-          </tr>
-          <tr>
-            <td class="editable" contenteditable="true">Outro</td>
-            <td class="editable" contenteditable="true"></td>
-            <td class="editable" contenteditable="true"></td>
-            <td class="center editable" contenteditable="true"></td>
-          </tr>
-          <tr>
-            <td class="editable" contenteditable="true"></td>
-            <td class="editable" contenteditable="true"></td>
-            <td class="editable" contenteditable="true"></td>
-            <td class="center editable" contenteditable="true"></td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-wrapper">
+        <table class="responsive-table" id="action-table">
+          <thead>
+            <tr>
+              <th style="width: 18%;">Tipo / Frente</th>
+              <th style="width: 44%;">Ação / Proposta Aprovada</th>
+              <th style="width: 19%;">Responsável(is)</th>
+              <th style="width: 15%;" class="center">Prazo / Data</th>
+              <th style="width: 4%;" class="center no-print"></th>
+            </tr>
+          </thead>
+          <tbody id="action-tbody">
+            <tr>
+              <td class="editable" contenteditable="true" data-label="Tipo / Frente">Brigada / Jornal</td>
+              <td class="editable" contenteditable="true" data-label="Ação / Proposta Aprovada"></td>
+              <td class="editable" contenteditable="true" data-label="Responsável(is)"></td>
+              <td class="center editable" contenteditable="true" data-label="Prazo / Data"></td>
+              <td class="center no-print action-col"><button type="button" class="btn-remove-row" title="Remover linha"
+                  onclick="removeActionRow(this)">✕</button></td>
+            </tr>
+            <tr>
+              <td class="editable" contenteditable="true" data-label="Tipo / Frente">Militância / Base</td>
+              <td class="editable" contenteditable="true" data-label="Ação / Proposta Aprovada"></td>
+              <td class="editable" contenteditable="true" data-label="Responsável(is)"></td>
+              <td class="center editable" contenteditable="true" data-label="Prazo / Data"></td>
+              <td class="center no-print action-col"><button type="button" class="btn-remove-row" title="Remover linha"
+                  onclick="removeActionRow(this)">✕</button></td>
+            </tr>
+            <tr>
+              <td class="editable" contenteditable="true" data-label="Tipo / Frente">Formação</td>
+              <td class="editable" contenteditable="true" data-label="Ação / Proposta Aprovada"></td>
+              <td class="editable" contenteditable="true" data-label="Responsável(is)"></td>
+              <td class="center editable" contenteditable="true" data-label="Prazo / Data"></td>
+              <td class="center no-print action-col"><button type="button" class="btn-remove-row" title="Remover linha"
+                  onclick="removeActionRow(this)">✕</button></td>
+            </tr>
+            <tr>
+              <td class="editable" contenteditable="true" data-label="Tipo / Frente">Outro</td>
+              <td class="editable" contenteditable="true" data-label="Ação / Proposta Aprovada"></td>
+              <td class="editable" contenteditable="true" data-label="Responsável(is)"></td>
+              <td class="center editable" contenteditable="true" data-label="Prazo / Data"></td>
+              <td class="center no-print action-col"><button type="button" class="btn-remove-row" title="Remover linha"
+                  onclick="removeActionRow(this)">✕</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- 5. Atividades Financeiras -->
@@ -553,35 +775,153 @@
     </div>
   </div>
 
-  <!-- Script do Cronômetro de 5 Minutos para a Mesa -->
+  <!-- Scripts de Dinâmica de Linhas e Cronômetro -->
   <script>
-    let totalSeconds = 300; // 5 minutos
+    /* --- 1. Adição e Remoção Dinâmica de Linhas --- */
+    function addSpeechRow() {
+      const tbody = document.getElementById('speech-tbody');
+      const nextIndex = tbody.children.length + 1;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="center row-index" data-label="#">${nextIndex}</td>
+        <td class="editable" contenteditable="true" data-label="Integrante / Camarada"></td>
+        <td class="center editable" contenteditable="true" data-label="Tempo">___:___</td>
+        <td class="editable" contenteditable="true" data-label="Pontos Centrais da Intervenção"></td>
+        <td class="center no-print action-col"><button type="button" class="btn-remove-row" title="Remover linha" onclick="removeSpeechRow(this)">✕</button></td>
+      `;
+      tbody.appendChild(tr);
+    }
+
+    function removeSpeechRow(btn) {
+      const tbody = document.getElementById('speech-tbody');
+      if (tbody.children.length <= 1) return;
+      btn.closest('tr').remove();
+      // Reordena a numeração (#)
+      Array.from(tbody.querySelectorAll('.row-index')).forEach((cell, idx) => {
+        cell.textContent = idx + 1;
+      });
+    }
+
+    function addActionRow() {
+      const tbody = document.getElementById('action-tbody');
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="editable" contenteditable="true" data-label="Tipo / Frente"></td>
+        <td class="editable" contenteditable="true" data-label="Ação / Proposta Aprovada"></td>
+        <td class="editable" contenteditable="true" data-label="Responsável(is)"></td>
+        <td class="center editable" contenteditable="true" data-label="Prazo / Data"></td>
+        <td class="center no-print action-col"><button type="button" class="btn-remove-row" title="Remover linha" onclick="removeActionRow(this)">✕</button></td>
+      `;
+      tbody.appendChild(tr);
+    }
+
+    function removeActionRow(btn) {
+      const tbody = document.getElementById('action-tbody');
+      if (tbody.children.length <= 1) return;
+      btn.closest('tr').remove();
+    }
+
+    /* --- 2. Cronômetro com Presets, Alertas e Tempo Negativo --- */
+    let initialSeconds = 300; // Padrão: 5 minutos (300s)
+    let remainingSeconds = 300;
     let timerInterval = null;
+
     const display = document.getElementById('timer-display');
+    const alertBanner = document.getElementById('timer-alert-banner');
+    const alertText = document.getElementById('timer-alert-text');
+
+    // Alerta sonoro discreto via Web Audio API (funciona sem arquivos externos)
+    function playBeep(frequency = 880, duration = 180) {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(frequency, ctx.currentTime);
+        gain.gain.setValueAtTime(0.15, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration / 1000);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + duration / 1000);
+      } catch (e) {
+        // Ignora caso o navegador bloqueie áudio automático
+      }
+    }
+
+    function showAlert(message, isDanger = false) {
+      alertText.textContent = message;
+      alertBanner.style.display = 'flex';
+      if (isDanger) {
+        alertBanner.classList.add('danger');
+      } else {
+        alertBanner.classList.remove('danger');
+      }
+    }
+
+    function dismissAlert() {
+      alertBanner.style.display = 'none';
+    }
+
+    function setPreset(seconds, btnElement) {
+      pauseTimer();
+      initialSeconds = seconds;
+      remainingSeconds = seconds;
+      dismissAlert();
+
+      document.querySelectorAll('.btn-preset').forEach(b => b.classList.remove('active'));
+      if (btnElement) btnElement.classList.add('active');
+
+      updateDisplay();
+    }
 
     function updateDisplay() {
-      const mins = Math.floor(totalSeconds / 60);
-      const secs = totalSeconds % 60;
-      display.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      const isNegative = remainingSeconds < 0;
+      const absSeconds = Math.abs(remainingSeconds);
+      const mins = Math.floor(absSeconds / 60);
+      const secs = absSeconds % 60;
+      const sign = isNegative ? '-' : '';
+
+      display.textContent = `${sign}${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 
       display.classList.remove('warning', 'danger');
-      if (totalSeconds <= 60 && totalSeconds > 0) {
-        display.classList.add('warning');
-      } else if (totalSeconds === 0) {
+      if (remainingSeconds <= 0) {
         display.classList.add('danger');
+      } else if (remainingSeconds <= 60) {
+        display.classList.add('warning');
+      }
+    }
+
+    function checkTimeAlerts() {
+      // Alertas específicos quando a fala padrão de 5 minutos (300s) é iniciada
+      if (initialSeconds === 300) {
+        if (remainingSeconds === 180) {
+          showAlert('⏱️ Alerta: Restam 3 minutos de fala.');
+          playBeep(660, 150);
+        } else if (remainingSeconds === 120) {
+          showAlert('⏱️ Alerta: Restam 2 minutos de fala.');
+          playBeep(740, 180);
+        } else if (remainingSeconds === 60) {
+          showAlert('⚠️ Atenção: Resta apenas 1 minuto para concluir!');
+          playBeep(880, 220);
+        }
+      }
+
+      // Alerta geral ao zerar o tempo (vale para 5, 2 ou 1 min)
+      if (remainingSeconds === 0) {
+        showAlert('🚨 Tempo esgotado! Iniciando contagem de tempo extra (-00:01...).', true);
+        playBeep(980, 400);
       }
     }
 
     function startTimer() {
       if (timerInterval) return;
       timerInterval = setInterval(() => {
-        if (totalSeconds > 0) {
-          totalSeconds--;
-          updateDisplay();
-        } else {
-          clearInterval(timerInterval);
-          timerInterval = null;
-        }
+        remainingSeconds--;
+        updateDisplay();
+        checkTimeAlerts();
       }, 1000);
     }
 
@@ -592,7 +932,8 @@
 
     function resetTimer() {
       pauseTimer();
-      totalSeconds = 300;
+      remainingSeconds = initialSeconds;
+      dismissAlert();
       updateDisplay();
     }
   </script>
